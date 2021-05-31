@@ -1,5 +1,6 @@
 package com.rsschool.android2021
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,16 +30,34 @@ class SecondFragment : Fragment() {
         val min = arguments?.getInt(MIN_VALUE_KEY) ?: 0
         val max = arguments?.getInt(MAX_VALUE_KEY) ?: 0
 
-        result?.text = generate(min, max).toString()
+        result?.text = generate(min,max).toString()//generate(min, max).toString()
 
         backButton?.setOnClickListener {
-            // TODO: implement back
+            mListener?.onSecondFragmentDataListener(result?.text.toString().toInt())
         }
     }
 
     private fun generate(min: Int, max: Int): Int {
         // TODO: generate random number
-        return 0
+        return (min..max).random()
+    }
+
+    interface OnSecondFragmentDataListener {
+        fun onSecondFragmentDataListener(result : Int)
+    }
+
+    private var mListener: OnSecondFragmentDataListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mListener = if (context is OnSecondFragmentDataListener) {
+            context
+        } else {
+            throw RuntimeException(
+                context.toString()
+                        + " must implement OnSecondFragmentDataListener"
+            )
+        }
     }
 
     companion object {
@@ -47,9 +66,9 @@ class SecondFragment : Fragment() {
         fun newInstance(min: Int, max: Int): SecondFragment {
             val fragment = SecondFragment()
             val args = Bundle()
-
-            // TODO: implement adding arguments
-
+            args.putInt(MIN_VALUE_KEY, min)
+            args.putInt(MAX_VALUE_KEY, max)
+            fragment.arguments = args
             return fragment
         }
 
