@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-//import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 
 class FirstFragment : Fragment() {
@@ -34,19 +33,6 @@ class FirstFragment : Fragment() {
         maxValue = view.findViewById(R.id.maxValue)
         val result = arguments?.getInt(PREVIOUS_RESULT_KEY)
         previousResult?.text = "Previous result: ${result.toString()}"
-
-//        var min = 0
-//        view.findViewById<EditText>(R.id.minValue).doAfterTextChanged {
-//            view.findViewById<EditText>(R.id.minValue).text.toString().toInt().let {
-//                min = it
-//            }
-//        }
-//        var max = 0
-//        view.findViewById<EditText>(R.id.maxValue).doAfterTextChanged {
-//            view.findViewById<EditText>(R.id.maxValue).text.toString().toInt().let {
-//                 max = it
-//            }
-//        }
 
         generateButton?.setOnClickListener {
             if(minValue?.text?.isNotEmpty() == true && maxValue?.text?.isNotEmpty() == true) {
